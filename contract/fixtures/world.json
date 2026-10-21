@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "subset": "small",
+  "bounds": { "minX": -120.5, "minZ": -98.25, "maxX": 130, "maxZ": 101.75 },
+  "fmaBase": "https://freemusicarchive.org/music/",
+  "audio": { "path": "{id}.m4a" },
+  "biomes": [
+    {
+      "id": 15,
+      "slug": "electronic",
+      "name": "Electronic",
+      "center": [-40.5, 3.25],
+      "radius": 80,
+      "palette": { "hue": 0.55, "saturation": 0.6 },
+      "species": "magnolia",
+      "trees": 2,
+      "file": "biome-15.json",
+      "groves": [
+        { "name": "core", "center": [-40.5, 3.25], "radius": 30, "trees": 1 },
+        { "name": "Techno", "center": [-10, 20.5], "radius": 25.5, "trees": 1 }
+      ]
+    },
+    {
+      "id": 12,
+      "slug": "rock",
+      "name": "Rock",
+      "center": [70, 0],
+      "radius": 60,
+      "palette": { "hue": 0.02, "saturation": 0.55 },
+      "species": "fir",
+      "trees": 0,
+      "file": "biome-12.json",
+      "groves": []
+    }
+  ],
+  "licenses": {
+    "by-nc-sa-3.0": {
+      "name": "CC BY-NC-SA 3.0",
+      "url": "https://creativecommons.org/licenses/by-nc-sa/3.0/"
+    },
+    "cc0-1.0": {
+      "name": "CC0 1.0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    }
+  }
+}

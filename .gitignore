@@ -1,0 +1,29 @@
+# Dependencies and build output
+**/node_modules/
+web/dist/
+pipeline/bin/
+*.zip
+
+# Raw data, intermediate files, audio (audio goes to object storage only)
+data/raw/
+data/build/
+/audio/
+
+# Environment and secrets
+.env
+.env.*
+
+# OS and editors
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Working notes (plans, progress, evidence) stay local
+notes/
+
+# Local AI config
+CLAUDE.local.md
+.claude/settings.local.json
+.codex/
+.cursor/

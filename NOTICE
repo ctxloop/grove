@@ -1,0 +1,53 @@
+grove
+Copyright (c) 2026 ctxloop
+
+grove is made of three kinds of material under different licenses. Read this
+before reusing any part of it, including in a fork.
+
+1. Code
+
+   Everything in this repository is under the MIT License (LICENSE), unless a
+   file or a section below says otherwise.
+
+2. Music metadata
+
+   Track, artist, album, genre, and audio-feature data come from FMA, the Free
+   Music Archive dataset, under CC BY 4.0:
+
+     Michaël Defferrard, Kirell Benzi, Pierre Vandergheynst, Xavier Bresson.
+     "FMA: A Dataset for Music Analysis." ISMIR 2017.
+     https://github.com/mdeff/fma
+
+   The pipeline turns it into web/public/data/, which is under the same
+   license.
+
+3. Audio
+
+   Every audio clip is a 30-second excerpt of a track from the Free Music
+   Archive and keeps that track's own Creative Commons license. The tree info
+   panel and the site's Credits page (web/public/data/<subset>/attribution.json)
+   name the title, artist, license, and FMA page of every track.
+
+   Only these licenses are used: CC BY, CC BY-SA, CC BY-NC, CC BY-NC-SA, CC0,
+   and Public Domain. NoDerivatives and non-Creative-Commons tracks are left
+   out.
+
+   NonCommercial (NC) tracks must not be used commercially. This applies to
+   anyone who runs, copies, or forks grove: the MIT License of the code does
+   not grant any right to the audio. A commercial use needs either the NC
+   tracks removed or permission from each rights holder.
+
+4. Art
+
+   Block textures, trees, and every other visual are generated in code by
+   grove itself. No third-party images, models, or sounds are included.
+
+5. Third-party software in the web build
+
+   three.js, MIT License, Copyright (c) 2010-2026 three.js authors.
+   https://github.com/mrdoob/three.js
+
+   Pixelify Sans, SIL Open Font License 1.1, Copyright 2021 The Pixelify Sans
+   Project Authors. Bundled through the npm package @fontsource/pixelify-sans.
+   https://github.com/eifetx/Pixelify-Sans
+   https://openfontlicense.org

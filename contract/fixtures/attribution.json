@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "fmaBase": "https://freemusicarchive.org/music/",
+  "licenses": {
+    "by-nc-sa-3.0": {
+      "name": "CC BY-NC-SA 3.0",
+      "url": "https://creativecommons.org/licenses/by-nc-sa/3.0/"
+    },
+    "cc0-1.0": {
+      "name": "CC0 1.0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    }
+  },
+  "tracks": [
+    {
+      "id": 2,
+      "b": 15,
+      "t": "Food",
+      "a": "AWOL",
+      "lic": "by-nc-sa-3.0",
+      "url": "AWOL/AWOL_-_A_Way_Of_Life/Food"
+    },
+    {
+      "id": 140,
+      "b": 15,
+      "t": "Héllo \"quoted\"",
+      "a": "Ünïcode Artist",
+      "lic": "cc0-1.0",
+      "url": "Artist/Album/Track"
+    }
+  ]
+}

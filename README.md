@@ -18,7 +18,7 @@ Best with headphones.
 
 ## Status
 
-Feature-complete, not live yet.
+Live at <https://grove-egt.pages.dev/>.
 
 ## How it works
 

@@ -17,7 +17,7 @@ Versions are pinned in `go.mod`, `.nvmrc`, and `package-lock.json`.
 | UI | Plain DOM + CSS | — | A few panels do not need a framework. |
 | Tests | Go `testing`; Vitest for pure TS logic | Vitest 5.0.5 | Vitest reuses the Vite config. |
 | Browser checks | `playwright-core` driving a locally installed Chromium-based browser (`GROVE_BROWSER`) | 1.64.1 | Scripted measurements (payload, frame time, voice count, hidden tab) and audio checks. Kept out of `npm test`; run `node scripts/measure.ts` and `node scripts/audio-check.ts`. |
-| Hosting | Cloudflare Pages (web) + Cloudflare R2 (audio) | — | Free: static requests on Pages are unlimited and R2 has no egress fees. One account holds the site, the audio domain, and its protections (CLAUDE.md §4). |
+| Hosting | Cloudflare Pages, site and audio together, deployed with Wrangler 4 through `npx` | — | Free, with no domain to buy: static requests on Pages are unlimited, and the clips fit the 20,000-file limit. Cloudflare R2 behind a custom domain is the fallback (CLAUDE.md §4). |
 
 ## Key decisions
 

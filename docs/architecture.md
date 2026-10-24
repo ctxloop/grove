@@ -5,10 +5,11 @@
 ```
 FMA archives ──► grove-pipeline (Go, offline)
                    ├─► web/public/data/<subset>/  world.json, biome-<id>.json, attribution.json
-                   └─► audio/<track_id>.m4a ──(manual upload)──► R2
+                   └─► audio/<track_id>.m4a
 
-Browser ◄── Cloudflare Pages: HTML, JS, JSON
-        ◄── audio.<domain>: R2 behind Cloudflare cache + WAF
+web/dist/ + audio/ ──(local build, Wrangler upload)──► Cloudflare Pages
+
+Browser ◄── Cloudflare Pages: HTML, JS, JSON, /audio/<track_id>.m4a
 ```
 
 There is no runtime backend. Every request is for a static file.
@@ -84,12 +85,11 @@ Each subset has its own directory, `web/public/data/<subset>/`. Every file carri
 
 ## 6. Deployment
 
-| Target | Host | Publishing |
-|---|---|---|
-| Web | Cloudflare Pages | Built by Cloudflare from the connected repository (root `web`, `npm run build`, output `dist`); no deploy workflow in the repository. |
-| Audio | R2 | Uploaded by the maintainer, behind the protections in CLAUDE.md §4. |
+The site and the clips are one Cloudflare Pages deployment on one origin, so the default `VITE_AUDIO_BASE` of `/audio/` works there as it does locally, and no CORS is needed. The maintainer builds `web/dist/`, copies the clips into `dist/audio/`, and uploads it with Wrangler (README, Hosting). There is no deploy workflow in the repository. `web/public/_headers` gives the clips a one-year immutable cache; everything else keeps the Pages default, which revalidates by ETag.
 
 Locally, the Vite dev server answers `/audio/<track_id>.m4a` from the repo-root `audio/` directory.
+
+If the audio moves to R2 (the fallback in CLAUDE.md §4), only `VITE_AUDIO_BASE` changes, plus a CORS rule on the bucket.
 
 ## 7. Failure handling
 

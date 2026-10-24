@@ -2,9 +2,10 @@
 **/node_modules/
 web/dist/
 pipeline/bin/
+.wrangler/
 *.zip
 
-# Raw data, intermediate files, audio (audio goes to object storage only)
+# Raw data, intermediate files, audio (clips are uploaded with the site, never committed)
 data/raw/
 data/build/
 /audio/

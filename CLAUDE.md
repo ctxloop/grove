@@ -42,18 +42,23 @@ There is no runtime backend: Go runs offline, and the browser reads static JSON 
 - **Art:** original only; block textures are generated in code. Fonts must be under the SIL OFL or a similar license and credited in `NOTICE`. Never use assets or names from any existing game, and never describe the project as styled after one.
 - **Raw data:** download from `https://os.unil.cloud.switch.ch/fma/` into `data/raw/`. `grove-pipeline extract` checks the published SHA1. macOS `unzip` cannot read the bzip2 entries (exit 81); the pipeline can.
 
-## 4. Audio hosting and cost (red lines)
+## 4. Hosting and cost (red lines)
 
-Audio is hosted on Cloudflare R2, which has **no hard spending cap**. The site does not go public until all six items are in place:
+The site and the audio are one Cloudflare Pages project on the free plan, so there is no bill. It is a Direct Upload project, built and deployed locally with Wrangler as the README describes; Cloudflare does not build from the repository.
+
+- A deployment holds at most 20,000 files of up to 25 MiB each. Check the count before adding clips or a subset.
+- Clips are served as `/audio/<track_id>.m4a` with `Cache-Control: public, max-age=31536000, immutable` (`web/public/_headers`). A track id never gets different audio.
+
+If Cloudflare limits the audio on Pages, the fallback is Cloudflare R2 behind a custom domain. R2 has **no hard spending cap**, so the audio does not move there until all six items are in place:
 
 1. Serve only through a custom domain on Cloudflare; disable public `r2.dev` access.
 2. Cache all audio, with a cache key that ignores query strings.
 3. WAF allows only `GET /audio/<track_id>.m4a`.
 4. Enable the free per-IP rate limiting rule.
-5. Enable a budget alert (the maintainer sets the threshold). The README documents the kill switch.
+5. Enable a budget alert (the maintainer sets the threshold), and document the kill switch in the README.
 6. Every object has the key `audio/<track_id>.m4a` and `Cache-Control: public, max-age=31536000, immutable`.
 
-Uploads to R2, bucket, WAF, cache, domain, and billing changes, and any CI/CD config each need the maintainer's explicit approval. R2 credentials live only in local environment variables, never in code, commits, or logs.
+Each of these needs the maintainer's explicit approval: deployments, Cloudflare logins and project, domain, or billing changes, anything on R2, and any CI/CD config. Cloudflare credentials stay on the maintainer's machine, never in code, commits, or logs.
 
 ## 5. Targets
 

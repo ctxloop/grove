@@ -18,7 +18,7 @@ Best with headphones.
 
 ## Status
 
-Feature-complete, not live yet: the audio hosting below comes first.
+Feature-complete, not live yet.
 
 ## How it works
 
@@ -52,18 +52,24 @@ The dev server answers `/audio/<track_id>.m4a` from `audio/`. For the smaller 8-
 
 ## Hosting
 
-The site is static and hosted on Cloudflare Pages, connected to this repository:
+The site and its audio are hosted together on Cloudflare Pages (free plan), as a Direct Upload project: the clips are not in the repository, so Cloudflare cannot build from it, and each deployment is built and uploaded locally with Wrangler. The rules are in [CLAUDE.md §4](CLAUDE.md#4-hosting-and-cost-red-lines).
 
-- **Build settings.** Root directory `web`, build command `npm run build`, output directory `dist`.
-- **Environment variables.** `NODE_VERSION=26.12.0` (the Pages default is older), `VITE_AUDIO_BASE=https://<audio domain>/audio/`, and `VITE_SITE_URL=https://<site domain>` for the link-preview image.
+```sh
+cd web
+npx wrangler@4 login
+npx wrangler@4 pages project create grove --production-branch master   # once
+VITE_SITE_URL=https://<project>.pages.dev npm run build
+rsync -a --include='*.m4a' --exclude='*' ../audio/ dist/audio/
+npx wrangler@4 pages deploy dist --project-name grove --branch master
+```
 
-Audio is served from Cloudflare R2 behind that custom domain. R2 has no spending cap, so the site does not go public until the six protections in [CLAUDE.md §4](CLAUDE.md#4-audio-hosting-and-cost-red-lines) are in place. Also:
-
-- **CORS.** The site and the audio are on different origins, so the bucket must allow `GET` from the site's origin. Without it no clip loads and no tree lights up.
-- **Upload.** Only the `audio/*.m4a` clips, under the key `audio/<track_id>.m4a`, each with `Cache-Control: public, max-age=31536000, immutable`.
+- **Size.** A deployment holds at most 20,000 files of up to 25 MiB each. The medium subset is 14,586 clips (3.6 GB) plus about 40 site files. Wrangler uploads only files the project does not have yet, so only the first deployment sends the clips.
+- **Caching.** `web/public/_headers` serves every clip with `Cache-Control: public, max-age=31536000, immutable`; a clip never changes for a given track id.
 - **Check.** Run `web/scripts/measure.ts` against the deployed URL to confirm the payload with the real host's compression.
 
-**Kill switch.** If traffic or the bill looks wrong, disable public access to the audio bucket (R2 → the bucket → Settings → Public access: disconnect the custom domain). The site keeps loading; the trees just stay silent.
+**Kill switch.** To take the audio offline, deploy the same build without `dist/audio/`. The site keeps loading; the trees just stay silent.
+
+**Fallback.** If the audio has to leave Pages, put the clips on Cloudflare R2 behind a custom domain, with the protections in CLAUDE.md §4 in place first. Build with `VITE_AUDIO_BASE=https://<audio domain>/audio/`, and let the bucket's CORS policy allow `GET` from the site's origin.
 
 ## Contributing
 
